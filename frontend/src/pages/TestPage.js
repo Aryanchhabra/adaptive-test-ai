@@ -1,38 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Button, Grid, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles({
-  testContainer: {
-    backgroundColor: '#1c1c1e',
-    padding: '40px',
-    borderRadius: '10px',
-    textAlign: 'center',
-    maxWidth: '700px',
-    margin: '50px auto',
-    color: '#e0e0e0',
-  },
-  question: {
-    color: '#4db6e2',
-    fontSize: '1.5rem',
-    marginBottom: '30px',
-  },
-  optionButton: {
-    backgroundColor: '#4db6e2',
-    color: '#1c1c1e',
-    margin: '10px',
-    padding: '10px 20px',
-    fontSize: '1rem',
-    '&:hover': {
-      backgroundColor: '#357cae',
-    },
-  },
-  score: {
-    color: '#4db6e2',
-    fontSize: '1.5rem',
-    marginTop: '20px',
-  },
-});
+import { Typography, Button, Box } from '@mui/material';
 
 const questions = [
   {
@@ -52,8 +19,7 @@ const questions = [
   },
 ];
 
-function Test() {
-  const classes = useStyles();
+function TestPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -72,32 +38,32 @@ function Test() {
   };
 
   return (
-    <Box className={classes.testContainer}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', py: 4 }}>
       {showScore ? (
-        <Typography variant="h4" className={classes.score}>
+        <Typography variant="h4">
           Your Score: {score} / {questions.length}
         </Typography>
       ) : (
         <>
-          <Typography variant="h5" className={classes.question}>
+          <Typography variant="h5" gutterBottom>
             {questions[currentQuestion].question}
           </Typography>
-          <Grid container spacing={2} justifyContent="center">
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}>
             {questions[currentQuestion].options.map((option, index) => (
-              <Grid item key={index}>
-                <Button
-                  className={classes.optionButton}
-                  onClick={() => handleAnswer(option)}
-                >
-                  {option}
-                </Button>
-              </Grid>
+              <Button
+                key={index}
+                variant="outlined"
+                onClick={() => handleAnswer(option)}
+                sx={{ justifyContent: 'flex-start', py: 1 }}
+              >
+                {option}
+              </Button>
             ))}
-          </Grid>
+          </Box>
         </>
       )}
     </Box>
   );
 }
 
-export default Test;
+export default TestPage;

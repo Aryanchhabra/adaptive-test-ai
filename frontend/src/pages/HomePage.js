@@ -1,8 +1,21 @@
-import React from 'react';
+// src/HomePage.js
+import React, { useContext } from 'react';
 import { Button, Box, Typography, Container, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 function HomePage() {
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleStartTest = () => {
+    if (isAuthenticated) {
+      navigate('/test');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <Container component="main" maxWidth="lg" sx={{ marginTop: '50px' }}>
       <Box
@@ -25,11 +38,10 @@ function HomePage() {
           Start now and get personalized feedback!
         </Typography>
         <Button
-          component={Link}
-          to="/test"
           variant="contained"
           color="primary"
           size="large"
+          onClick={handleStartTest}
           sx={{
             backgroundColor: '#1976d2',
             padding: '10px 30px',

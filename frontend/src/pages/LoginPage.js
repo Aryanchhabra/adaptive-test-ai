@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+// src/LoginPage.js
+import React, { useState, useContext } from 'react';
 import { Box, Button, TextField, Typography, Container, Paper } from '@mui/material';
+import { AuthContext } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Basic email and password validation
-    if (!email || !password) {
-      setError('Please fill in all fields');
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setError('Please enter a valid email');
+    // Basic validation (replace with real authentication logic)
+    if (email === 'user@example.com' && password === 'password') {
+      login();
+      navigate('/test');
     } else {
-      setError('');
-      // Perform login logic here
-      console.log('Logged in:', { email, password });
-      alert('Login successful!');
+      setError('Invalid email or password');
     }
   };
 
